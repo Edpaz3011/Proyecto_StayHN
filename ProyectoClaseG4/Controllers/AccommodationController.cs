@@ -57,3 +57,9 @@ public class AccommodationController : ControllerBase
         return Ok(new { message = "Alojamiento desactivado exitosamente." });
     }
 }
+
+
+
+
+
+
