@@ -17,3 +17,8 @@ export interface QuestionRequest {
   accommodationId: string;
   questionText: string;
 }
+
+
+
+
+
