@@ -1,7 +1,11 @@
 <div class="guest-dashboard">
-  <header class="guest-header">
-    <h1>Bienvenido a tu Dashboard</h1>
-  </header>
+    <header class="guest-header" style="position: relative; display: flex; align-items: center; padding: 20px;">
+        <h1>Bienvenido a tu Dashboard</h1>
+
+        <button (click)="logout()" class="btn-logout">
+            <span>🚪</span> Cerrar Sesión
+        </button>
+    </header>
 
   <nav class="guest-nav">
     <button *ngFor="let item of menuItems" [routerLink]="item.link" class="nav-item">

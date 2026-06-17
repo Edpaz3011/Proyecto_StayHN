@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { User, LoginRequest, RegisterRequest, AuthResponse } from '../models/user.model';
 
@@ -13,13 +14,12 @@ export class AuthService {
   private tokenSubject: BehaviorSubject<string | null>;
   public token: Observable<string | null>;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     this.currentUserSubject = new BehaviorSubject<User | null>(this.getUserFromLocalStorage());
     this.currentUser = this.currentUserSubject.asObservable();
     this.tokenSubject = new BehaviorSubject<string | null>(localStorage.getItem('token'));
     this.token = this.tokenSubject.asObservable();
   }
-
   public get currentUserValue(): User | null {
     return this.currentUserSubject.value;
   }
@@ -51,6 +51,9 @@ export class AuthService {
     localStorage.removeItem('token');
     this.currentUserSubject.next(null);
     this.tokenSubject.next(null);
+
+    // Redirecciona al login inmediatamente usando lo que ya existe
+    this.router.navigate(['/login']);
   }
 
   setUserData(user: User, token: string): void {

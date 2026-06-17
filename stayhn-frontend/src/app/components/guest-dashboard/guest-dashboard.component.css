@@ -116,3 +116,31 @@
 .btn-primary:hover {
   background-color: #764ba2;
 }
+
+/* Estilo base unificado: igual que tus otros botones */
+.btn-logout {
+  /* Estilos de forma heredados de tus botones estándar */
+  padding: 8px 16px;
+  border-radius: 6px; /* Ajusta este valor si tus otros botones tienen más/menos radio */
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+
+  /* Colores específicos de "Cerrar Sesión" */
+  background-color: #e74c3c; /* Rojo StayHn */
+  color: white;
+
+  /* Ubicación fija en el header sin estorbar */
+  position: absolute;
+  right: 20px;
+}
+
+/* Efecto hover igual al de tus otros botones */
+.btn-logout:hover {
+  background-color: #c0392b; /* Rojo un poco más oscuro */
+  transform: translateY(-2px); /* Un pequeño levantamiento al pasar el mouse */
+}
