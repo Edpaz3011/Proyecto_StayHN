@@ -12,6 +12,11 @@ public class FirebaseService
 
     public FirebaseService(string projectId, string? credentialPath = null)
     {
+        if (!string.IsNullOrWhiteSpace(credentialPath))
+        {
+            credentialPath = credentialPath.Replace("\\", "/");
+        }
+        
         Console.WriteLine($"FirebaseService initializing. projectId={projectId}, credentialPath={credentialPath}");
         Console.WriteLine($"Environment GOOGLE_APPLICATION_CREDENTIALS={Environment.GetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS")}");
 
