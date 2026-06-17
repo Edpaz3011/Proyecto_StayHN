@@ -23,6 +23,12 @@ export class QuestionService {
     return this.http.get<Question[]>(this.apiUrl);
   }
 
+
+
+
+
+
+  
   answerQuestion(id: string, answerText: string, answeredBy: string): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}/answer`, { answerText, answeredBy });
   }
