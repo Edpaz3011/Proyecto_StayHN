@@ -1,0 +1,27 @@
+<div class="landing">
+  <header class="hero">
+    <div class="hero-content">
+      <h1>Bienvenido a StayHn</h1>
+      <p>Tu plataforma de reservaciones de alojamientos</p>
+      <div class="cta-buttons">
+        <button class="btn btn-primary" routerLink="/login">Iniciar Sesión</button>
+        <button class="btn btn-secondary" routerLink="/register">Registrarse</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="features">
+    <h2>¿Por qué elegir StayHn?</h2>
+    <div class="features-grid">
+      <div *ngFor="let feature of features" class="feature-card">
+        <div class="icon">{{ feature.icon }}</div>
+        <h3>{{ feature.title }}</h3>
+        <p>{{ feature.description }}</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2024 StayHn. Todos los derechos reservados.</p>
+  </footer>
+</div>

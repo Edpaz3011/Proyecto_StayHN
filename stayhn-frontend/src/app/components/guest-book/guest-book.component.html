@@ -1,0 +1,82 @@
+<div class="guest-book-page" *ngIf="accommodation">
+  <header class="book-header">
+    <h1>Reserva: {{ accommodation.name }}</h1>
+    <p>{{ accommodation.location }} • {{ accommodation.type }}</p>
+  </header>
+
+  <div class="book-details">
+    <div class="accommodation-card">
+      <img *ngIf="accommodation.photoUrls?.length" [src]="accommodation.photoUrls[0]" alt="Imagen de alojamiento" />
+      <div class="info">
+        <h2>{{ accommodation.name }}</h2>
+        <p>{{ accommodation.description }}</p>
+        <p>Precio por noche: ${{ accommodation.pricePerNight }}</p>
+        <p>Capacidad: {{ accommodation.capacity }} huéspedes</p>
+        <p>Valoración: {{ accommodation.averageRating.toFixed(1) }} ⭐</p>
+      </div>
+    </div>
+
+    <div class="booking-form">
+      <h2>Datos de reserva</h2>
+      <label>
+        Fecha de entrada
+        <input type="date" [(ngModel)]="checkInDate" [min]="minCheckInDate" (change)="onDatesChange()" />
+      </label>
+      <label>
+        Fecha de salida
+        <input type="date" [(ngModel)]="checkOutDate" [min]="checkInDate || minCheckInDate" (change)="onDatesChange()" />
+      </label>
+
+      <div *ngIf="selectedNights > 0" class="summary-box">
+        <p>Noches: {{ selectedNights }}</p>
+        <p>Subtotal: ${{ selectedSubtotal }}</p>
+        <p>Impuestos: ${{ selectedTaxes }}</p>
+        <p><strong>Total: ${{ selectedTotal }}</strong></p>
+      </div>
+
+      <div *ngIf="blockedRanges.length" class="blocked-dates">
+        <p><strong>Fechas ocupadas actualmente:</strong></p>
+        <ul>
+          <li *ngFor="let range of blockedRanges">
+            {{ range.checkIn }} → {{ range.checkOut }}
+          </li>
+        </ul>
+      </div>
+
+      <div *ngIf="availabilityMessage" class="warning-message">{{ availabilityMessage }}</div>
+
+      <h2>Pago simulado</h2>
+      <label>
+        Nombre en la tarjeta
+        <input type="text" [(ngModel)]="cardHolder" placeholder="Nombre del titular" />
+      </label>
+      <label>
+        Número de tarjeta
+        <input type="text" [(ngModel)]="cardNumber" placeholder="1234567812345678" maxlength="16" />
+      </label>
+      <label>
+        Fecha de expiración
+        <input type="text" [(ngModel)]="expirationDate" placeholder="MM/AA" />
+      </label>
+      <label>
+        CVV
+        <input type="text" [(ngModel)]="cvv" placeholder="123" maxlength="3" />
+      </label>
+
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+      <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+      <div *ngIf="lastReference" class="confirmation-box">
+        <p><strong>Referencia de reserva:</strong> {{ lastReference }}</p>
+        <p>Revisa tu historial en Mis Reservaciones.</p>
+      </div>
+
+      <button class="btn-primary" (click)="book()" [disabled]="isLoading || !!availabilityMessage || selectedNights <= 0">
+        {{ isLoading ? 'Procesando...' : 'Confirmar reserva y pagar' }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!accommodation && !isLoading" class="error-message">
+  {{ errorMessage || 'Alojamiento no encontrado.' }}
+</div>

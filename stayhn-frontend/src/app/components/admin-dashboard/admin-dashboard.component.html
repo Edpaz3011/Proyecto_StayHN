@@ -1,0 +1,31 @@
+<div class="admin-dashboard">
+  <header class="admin-header">
+    <h1>🏠 Panel de Administrador</h1>
+  </header>
+
+  <nav class="admin-nav">
+    <button *ngFor="let item of menuItems" [routerLink]="item.link" class="nav-item">
+      <span class="icon">{{ item.icon }}</span>
+      <span class="label">{{ item.label }}</span>
+    </button>
+  </nav>
+
+  <section class="stats-section">
+    <h2>Estadísticas</h2>
+    <div class="stats-grid">
+      <div *ngFor="let stat of stats" class="stat-card" [style.borderLeft]="'4px solid ' + stat.color">
+        <h3>{{ stat.label }}</h3>
+        <p class="stat-value">{{ stat.value }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="actions-section">
+    <h2>Acciones Rápidas</h2>
+    <div class="actions-grid">
+      <button class="action-btn" routerLink="/admin/accommodations">🏠 Alojamientos</button>
+      <button class="action-btn" routerLink="/admin/reservations">📋 Ver Reservaciones</button>
+      <button class="action-btn" routerLink="/admin/reports">📈 Ver Reportes</button>
+    </div>
+  </section>
+</div>

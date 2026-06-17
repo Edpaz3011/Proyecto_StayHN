@@ -1,0 +1,73 @@
+.guest-search-page {
+  padding: 2rem;
+}
+
+.search-header {
+  margin-bottom: 1.5rem;
+}
+
+.search-header h1 {
+  margin: 0 0 0.5rem;
+}
+
+.search-filters {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.filter-row label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.filter-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.search-results .loading,
+.search-results .error-message,
+.empty-state {
+  margin-bottom: 1.25rem;
+}
+
+.accommodation-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+
+.accommodation-card {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+}
+
+.accommodation-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.accommodation-card .info {
+  padding: 1rem;
+}
+
+.accommodation-card h2 {
+  margin: 0 0 0.5rem;
+}
+
+.accommodation-card p {
+  margin: 0.35rem 0;
+}

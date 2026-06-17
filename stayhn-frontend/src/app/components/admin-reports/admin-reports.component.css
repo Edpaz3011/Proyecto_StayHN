@@ -1,0 +1,62 @@
+.admin-reports {
+  padding: 20px;
+}
+
+.report-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.report-card {
+  background: white;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+
+.report-card h3 {
+  margin: 0 0 12px 0;
+}
+
+.report-section {
+  margin-bottom: 24px;
+}
+
+.report-list {
+  display: grid;
+  gap: 10px;
+}
+
+.report-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.trend-table {
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.trend-header,
+.trend-row {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 8px;
+  padding: 12px 16px;
+}
+
+.trend-header {
+  background: #f5f7ff;
+  font-weight: bold;
+}
+
+.trend-row:nth-child(odd) {
+  background: #fafbff;
+}

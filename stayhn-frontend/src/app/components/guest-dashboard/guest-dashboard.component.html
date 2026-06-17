@@ -1,0 +1,29 @@
+<div class="guest-dashboard">
+  <header class="guest-header">
+    <h1>Bienvenido a tu Dashboard</h1>
+  </header>
+
+  <nav class="guest-nav">
+    <button *ngFor="let item of menuItems" [routerLink]="item.link" class="nav-item">
+      <span class="icon">{{ item.icon }}</span>
+      <span class="label">{{ item.label }}</span>
+    </button>
+  </nav>
+
+  <section class="content">
+    <h2>Mis Últimas Reservaciones</h2>
+    <div class="reservations-list">
+      <div *ngFor="let res of recentReservations" class="reservation-item">
+        <div class="res-info">
+          <h3>{{ res.accommodation }}</h3>
+          <p>{{ res.date }}</p>
+        </div>
+        <div class="res-status" [class]="'status-' + res.status.toLowerCase()">
+          {{ res.status }}
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-primary" routerLink="/guest/search">Buscar Nuevos Alojamientos</button>
+  </section>
+</div>

@@ -1,0 +1,27 @@
+<div class="register-container">
+  <div class="register-box">
+    <h1>StayHn - Registrarse</h1>
+    <form (ngSubmit)="register()">
+      <div class="form-group">
+        <label for="fullName">Nombre Completo:</label>
+        <input type="text" id="fullName" [(ngModel)]="registerData.fullName" name="fullName" required />
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" [(ngModel)]="registerData.email" name="email" required />
+      </div>
+      <div class="form-group">
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" [(ngModel)]="registerData.password" name="password" required />
+      </div>
+      <div class="form-group">
+        <label for="confirmPassword">Confirmar Contraseña:</label>
+        <input type="password" id="confirmPassword" [(ngModel)]="confirmPassword" name="confirmPassword" required />
+      </div>
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+      <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+      <button type="submit" [disabled]="isLoading">{{ isLoading ? 'Registrando...' : 'Registrarse' }}</button>
+    </form>
+    <p><a routerLink="/login">¿Ya tienes cuenta? Inicia sesión aquí</a></p>
+  </div>
+</div>

@@ -1,0 +1,4 @@
+.guest-reviews { padding: 16px }
+.guest-reviews label { display:block; margin-top:8px }
+.guest-reviews input, .guest-reviews select, .guest-reviews textarea { width:100%; padding:6px }
+.guest-reviews .message { margin-top:8px; color:green }

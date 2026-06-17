@@ -1,0 +1,28 @@
+<div class="reservations">
+  <h2>Mis Reservaciones</h2>
+
+  <div *ngIf="isLoading">Cargando reservaciones...</div>
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <div *ngIf="!isLoading && reservations.length === 0">No hay reservaciones.</div>
+
+  <ul *ngIf="reservations.length > 0" class="reservation-list">
+    <li *ngFor="let r of reservations" class="reservation-item">
+      <div class="row">
+        <div class="col">
+          <strong>{{ r.accommodationName }}</strong>
+          <div>{{ r.checkInDate | date:'shortDate' }} - {{ r.checkOutDate | date:'shortDate' }} ({{ r.nights }} noches)</div>
+        </div>
+        <div class="col">
+          <div>Estado: <span class="status">{{ r.status }}</span></div>
+          <div>Precio: ${{ r.totalCost }}</div>
+          <div>Referencia: {{ r.referenceNumber || '—' }}</div>
+        </div>
+        <div class="col actions">
+          <a [routerLink]="['/guest/book', r.accommodationId]">Ver alojamiento</a>
+          <button *ngIf="r.status === 'pending'" (click)="cancel(r.id)">Cancelar</button>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

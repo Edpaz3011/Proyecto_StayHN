@@ -1,0 +1,31 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/modules.xml
+/contentModel.xml
+/projectSettingsUpdater.xml
+/.idea.ProyectoClaseG4.iml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Ignored default folder with query files
+/queries/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+# Angular
+.angular/
+dist/
+
+# Node
+node_modules/
+
+# Logs
+*.log
+
+# VS Code
+.vscode/
+
+# Sistema
+Thumbs.db
+.DS_Store

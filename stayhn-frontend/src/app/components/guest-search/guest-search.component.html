@@ -1,0 +1,61 @@
+<div class="guest-search-page">
+  <header class="search-header">
+    <h1>Buscar Alojamientos</h1>
+    <p>Filtra y encuentra el alojamiento ideal para tu próxima estadía.</p>
+  </header>
+
+  <section class="search-filters">
+    <div class="filter-row">
+      <label>
+        Ciudad
+        <input type="text" [(ngModel)]="filters.location" placeholder="Ej. Madrid" />
+      </label>
+      <label>
+        Tipo
+        <input type="text" [(ngModel)]="filters.type" placeholder="Ej. Casa, Apartamento" />
+      </label>
+      <label>
+        Precio mínimo
+        <input type="number" [(ngModel)]="filters.minPrice" />
+      </label>
+      <label>
+        Precio máximo
+        <input type="number" [(ngModel)]="filters.maxPrice" />
+      </label>
+      <label>
+        Capacidad
+        <input type="number" [(ngModel)]="filters.capacity" />
+      </label>
+    </div>
+    <div class="filter-actions">
+      <button class="btn-primary" (click)="search()">Buscar</button>
+      <button class="btn-secondary" (click)="clearFilters()">Limpiar filtros</button>
+    </div>
+  </section>
+
+  <section class="search-results">
+    <div *ngIf="isLoading" class="loading">Cargando alojamientos...</div>
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+    <div *ngIf="!isLoading && !errorMessage && filteredAccommodations.length === 0" class="empty-state">
+      No se encontraron alojamientos con esos criterios.
+    </div>
+
+    <div class="accommodation-grid">
+      <div *ngFor="let accommodation of filteredAccommodations" class="accommodation-card">
+        <img *ngIf="accommodation.photoUrls?.length" [src]="accommodation.photoUrls[0]" alt="Imagen de alojamiento" />
+        <div class="info">
+          <h2>{{ accommodation.name }}</h2>
+          <p>{{ accommodation.location }} • {{ accommodation.type }}</p>
+          <p>Capacidad: {{ accommodation.capacity }} huéspedes</p>
+          <p>Precio por noche: ${{ accommodation.pricePerNight }}</p>
+          <p>Valoración: {{ accommodation.averageRating.toFixed(1) }} ({{ accommodation.totalReviews }} reseñas)</p>
+          <div class="card-actions">
+            <button class="btn-secondary" [routerLink]="['/accommodation', accommodation.id]">Ver detalle</button>
+            <button class="btn-primary" [routerLink]="['/guest/book', accommodation.id]">Reservar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,90 @@
+<div class="admin-accommodations">
+  <h2>Alojamientos</h2>
+
+  <section class="accommodation-form">
+    <h3>{{ formTitle }}</h3>
+
+    <div *ngIf="error" class="error">{{ error }}</div>
+    <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
+
+    <form (ngSubmit)="save()" #form="ngForm">
+      <label>
+        Nombre
+        <input name="name" [(ngModel)]="accommodationForm.name" required />
+      </label>
+
+      <label>
+        Tipo
+        <input name="type" [(ngModel)]="accommodationForm.type" placeholder="house, apartment, hotel" />
+      </label>
+
+      <label>
+        Ubicación
+        <input name="location" [(ngModel)]="accommodationForm.location" required />
+      </label>
+
+      <label>
+        Capacidad
+        <input type="number" name="capacity" [(ngModel)]="accommodationForm.capacity" min="1" />
+      </label>
+
+      <label>
+        Precio por noche
+        <input type="number" name="pricePerNight" [(ngModel)]="accommodationForm.pricePerNight" min="0" step="0.01" required />
+      </label>
+
+      <label>
+        Descripción
+        <textarea name="description" [(ngModel)]="accommodationForm.description"></textarea>
+      </label>
+
+      <label>
+        Amenidades (separadas por comas)
+        <input name="amenities" [(ngModel)]="accommodationForm.amenities" />
+      </label>
+
+      <label>
+        Fotos (URLs separadas por comas)
+        <input name="photoUrls" [(ngModel)]="accommodationForm.photoUrls" />
+      </label>
+
+      <div class="form-actions">
+        <button type="submit" [disabled]="form.invalid">Guardar</button>
+        <button type="button" (click)="cancelEdit()">Cancelar</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="accommodation-list">
+    <h3>Lista de alojamientos</h3>
+
+    <div *ngIf="isLoading">Cargando...</div>
+    <div *ngIf="!isLoading && accommodations.length === 0">No hay alojamientos disponibles.</div>
+
+    <table *ngIf="accommodations.length">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Ubicación</th>
+          <th>Precio</th>
+          <th>Capacidad</th>
+          <th>Activo</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let a of accommodations">
+          <td>{{ a.name }}</td>
+          <td>{{ a.location }}</td>
+          <td>{{ a.pricePerNight | currency:'USD' }}</td>
+          <td>{{ a.capacity }}</td>
+          <td>{{ a.isActive ? 'Sí' : 'No' }}</td>
+          <td>
+            <button type="button" (click)="edit(a)">Editar</button>
+            <button type="button" (click)="delete(a.id)">Desactivar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>

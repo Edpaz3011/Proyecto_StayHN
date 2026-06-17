@@ -1,0 +1,22 @@
+<div class="admin-questions">
+  <h2>Preguntas de huéspedes</h2>
+
+  <div *ngIf="loading">Cargando preguntas...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div *ngIf="!loading && questions.length === 0">No hay preguntas pendientes.</div>
+
+  <div *ngFor="let question of questions" class="question-card">
+    <p><strong>{{ question.userName }}</strong> preguntó sobre <em>{{ question.accommodationId }}</em>:</p>
+    <p>{{ question.questionText }}</p>
+    <div *ngIf="question.answerText">
+      <p><strong>Respuesta:</strong> {{ question.answerText }}</p>
+      <p><em>{{ question.answeredBy }}</em></p>
+    </div>
+
+    <div *ngIf="!question.answerText" class="answer-section">
+      <textarea [(ngModel)]="answerText[question.id]" rows="3" placeholder="Escribe una respuesta..."></textarea>
+      <button (click)="answerQuestion(question)">Responder y aprobar</button>
+    </div>
+  </div>
+</div>

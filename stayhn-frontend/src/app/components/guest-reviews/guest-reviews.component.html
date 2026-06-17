@@ -1,0 +1,33 @@
+<div class="guest-reviews">
+  <h2>Mis Reseñas</h2>
+
+  <div *ngIf="accommodationsForReview.length === 0">No hay alojamientos para reseñar aún.</div>
+
+  <form *ngIf="accommodationsForReview.length > 0" (ngSubmit)="submit()">
+    <label>Alojamiento</label>
+    <select [(ngModel)]="model.accommodationId" name="accommodation">
+      <option *ngFor="let a of accommodationsForReview" [value]="a.id">{{ a.name }}</option>
+    </select>
+
+    <label>Rating</label>
+    <input type="number" [(ngModel)]="model.rating" name="rating" min="1" max="5" />
+
+    <label>Comentario</label>
+    <textarea [(ngModel)]="model.comment" name="comment"></textarea>
+
+    <button type="submit" [disabled]="isSubmitting">Enviar Reseña</button>
+  </form>
+
+  <div *ngIf="message" class="message">{{ message }}</div>
+
+    <div class="my-reviews" *ngIf="myReviews.length > 0">
+      <h3>Mis reseñas</h3>
+      <ul>
+        <li *ngFor="let r of myReviews">
+          <strong>{{ r.accommodationId }}</strong> — {{ r.rating }} / 5
+          <div>{{ r.comment }}</div>
+          <div class="small">{{ r.createdAt | date:'short' }}</div>
+        </li>
+      </ul>
+    </div>
+</div>

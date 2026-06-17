@@ -1,0 +1,16 @@
+<div class="guest-profile">
+  <h2>Mi Perfil</h2>
+  <div *ngIf="!model">Necesitas iniciar sesión.</div>
+
+  <form *ngIf="model" (ngSubmit)="save()">
+    <label>Nombre</label>
+    <input [(ngModel)]="model.name" name="name" />
+
+    <label>Email</label>
+    <input [(ngModel)]="model.email" name="email" />
+
+    <button type="submit">Guardar</button>
+  </form>
+
+  <div *ngIf="message" class="message">{{ message }}</div>
+</div>

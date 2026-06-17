@@ -1,0 +1,8 @@
+.reservations { padding: 16px; }
+.reservation-list { list-style: none; padding: 0; }
+.reservation-item { border: 1px solid #ddd; padding: 12px; margin-bottom: 8px; border-radius: 6px; }
+.row { display: flex; gap: 12px; align-items: center; }
+.col { flex: 1; }
+.actions { display:flex; flex-direction:column; gap:8px; align-items:flex-end }
+.status { font-weight:600; }
+.error { color: #b00020 }

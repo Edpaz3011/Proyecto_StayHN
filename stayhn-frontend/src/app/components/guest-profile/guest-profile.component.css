@@ -1,0 +1,4 @@
+.guest-profile { padding: 16px }
+.guest-profile label { display:block; margin-top:8px }
+.guest-profile input { width:100%; padding:6px }
+.guest-profile .message { margin-top:8px; color:green }
