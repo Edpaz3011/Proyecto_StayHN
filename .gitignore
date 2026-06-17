@@ -485,3 +485,11 @@ $RECYCLE.BIN/
 firebase-key.json
 **/firebase-credentials.json
 **/firebase-key.json
+
+# ==========================================
+# Para Angular (Frontend)
+# ==========================================
+**/stayhn-frontend/.angular/
+**/stayhn-frontend/dist/
+**/.angular/
+**/dist/
