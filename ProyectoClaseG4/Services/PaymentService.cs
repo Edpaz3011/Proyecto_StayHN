@@ -4,6 +4,7 @@ namespace ProyectoClaseG4.Services;
 
 public class PaymentService
 {
+    
     private readonly FirebaseService _firebaseService;
 
     public PaymentService(FirebaseService firebaseService)
@@ -53,3 +54,6 @@ public class PaymentService
         return !string.IsNullOrWhiteSpace(cvv) && cvv.Length == 3 && cvv.All(char.IsDigit);
     }
 }
+
+
+
