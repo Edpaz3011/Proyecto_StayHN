@@ -1,18 +1,67 @@
 <div class="login-container">
-  <div class="login-box">
-    <h1>StayHn - Iniciar Sesión</h1>
-    <form (ngSubmit)="login()">
-      <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="email" id="email" [(ngModel)]="loginData.email" name="email" required />
-      </div>
-      <div class="form-group">
-        <label for="password">Contraseña:</label>
-        <input type="password" id="password" [(ngModel)]="loginData.password" name="password" required />
-      </div>
-      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
-      <button type="submit" [disabled]="isLoading">{{ isLoading ? 'Iniciando...' : 'Iniciar Sesión' }}</button>
-    </form>
-    <p><a routerLink="/register">¿No tienes cuenta? Regístrate aquí</a></p>
-  </div>
+    <div class="login-box">
+        <h1 *ngIf="viewMode === 'login'">StayHn - Iniciar Sesión</h1>
+        <h1 *ngIf="viewMode === 'forgot'">Recuperar Contraseña</h1>
+        <h1 *ngIf="viewMode === 'reset'">Restablecer Contraseña</h1>
+
+        <form *ngIf="viewMode === 'login'" (ngSubmit)="login()">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" [(ngModel)]="loginData.email" name="email" required />
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" [(ngModel)]="loginData.password" name="password" required />
+            </div>
+
+            <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+            <div *ngIf="successMessage" class="success-message" style="color: green; margin-bottom: 15px;">{{ successMessage }}</div>
+
+            <button type="submit" [disabled]="isLoading">{{ isLoading ? 'Iniciando...' : 'Iniciar Sesión' }}</button>
+
+            <p style="margin-top: 15px;">
+                <a href="javascript:void(0)" (click)="changeView('forgot')">¿Olvidaste tu contraseña?</a>
+            </p>
+        </form>
+
+        <form *ngIf="viewMode === 'forgot'" (ngSubmit)="onForgotPassword()">
+            <p>Introduce tu correo para enviarte un código de verificación de 6 dígitos.</p>
+            <div class="form-group">
+                <label for="recoveryEmail">Email:</label>
+                <input type="email" id="recoveryEmail" [(ngModel)]="recoveryData.email" name="recoveryEmail" required />
+            </div>
+
+            <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+            <button type="submit" [disabled]="isLoading">{{ isLoading ? 'Enviando...' : 'Enviar Código' }}</button>
+
+            <p style="margin-top: 15px;">
+                <a href="javascript:void(0)" (click)="changeView('login')">Volver al Login</a>
+            </p>
+        </form>
+
+        <form *ngIf="viewMode === 'reset'" (ngSubmit)="onResetPassword()">
+            <p>Hemos enviado un código a tu correo. Ingrésalo junto con tu nueva contraseña.</p>
+
+            <div class="form-group">
+                <label for="token">Código de 6 dígitos:</label>
+                <input type="text" id="token" [(ngModel)]="recoveryData.token" name="token" required placeholder="123456" />
+            </div>
+            <div class="form-group">
+                <label for="newPassword">Nueva Contraseña:</label>
+                <input type="password" id="newPassword" [(ngModel)]="recoveryData.newPassword" name="newPassword" required />
+            </div>
+
+            <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+            <button type="submit" [disabled]="isLoading">{{ isLoading ? 'Restableciendo...' : 'Restablecer Contraseña' }}</button>
+
+            <p style="margin-top: 15px;">
+                <a href="javascript:void(0)" (click)="changeView('forgot')">Volver a solicitar código</a>
+            </p>
+        </form>
+
+        <hr style="margin: 20px 0; border: 0; border-top: 1px solid #ccc;" />
+        <p><a routerLink="/register">¿No tienes cuenta? Regístrate aquí</a></p>
+    </div>
 </div>

@@ -86,3 +86,13 @@ p a {
 p a:hover {
   text-decoration: underline;
 }
+
+.success-message {
+  color: #2ecc71; /* Un verde vibrante */
+  background-color: #e8f8f5;
+  padding: 10px;
+  border-radius: 4px;
+  text-align: center;
+  margin-bottom: 15px;
+  font-weight: bold;
+}

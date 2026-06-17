@@ -3,6 +3,8 @@ using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using ProyectoClaseG4.Models;
+using MailKit.Net.Smtp;
+using MimeKit;
 
 namespace ProyectoClaseG4.Services;
 
@@ -99,4 +101,68 @@ public class AuthService
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
+    //Nuevo agregado por recuperacion de contraseña
+    public async Task<(bool success, string message)> SendPasswordResetEmailAsync(string email)
+{
+    var normalizedEmail = NormalizeEmail(email);
+    var user = await _firebaseService.GetUserByEmailAsync(normalizedEmail);
+
+    if (user == null)
+        return (false, "El correo electrónico no está registrado.");
+
+    // Generar código de 6 dígitos único
+    var resetToken = new Random().Next(100000, 999999).ToString();
+    user.ResetToken = resetToken; 
+    await _firebaseService.UpdateUserAsync(user);
+
+    try
+    {
+        var message = new MimeMessage();
+        // REEMPLAZA: Pon tu correo real de Gmail aquí
+        message.From.Add(new MailboxAddress("StayHN Support", "tu-correo@gmail.com"));
+        message.To.Add(new MailboxAddress(user.FullName, user.Email));
+        message.Subject = "Código de recuperación de contraseña - StayHN";
+
+        message.Body = new TextPart("html")
+        {
+            Text = $@"
+                <h3>Hola, {user.FullName}</h3>
+                <p>Has solicitado restablecer tu contraseña en StayHN.</p>
+                <p>Tu código de verificación es: <strong style='font-size: 18px; color: #2c3e50;'>{resetToken}</strong></p>
+                <p>Este código es de un solo uso. Si no solicitaste esto, puedes ignorar este correo.</p>"
+        };
+
+        using var client = new SmtpClient();
+        await client.ConnectAsync("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+
+        // REEMPLAZA: Coloca tu correo y tu Contraseña de Aplicación de 16 letras
+        await client.AuthenticateAsync("tu-correo@gmail.com", "tu-contraseña-de-aplicacion");
+
+        await client.SendAsync(message);
+        await client.DisconnectAsync(true);
+
+        return (true, "Se ha enviado el código de verificación a tu correo.");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"[ERROR SMTP] No se pudo enviar el correo: {ex.Message}");
+        Console.WriteLine($"[DEBUG] Código alternativo en consola: {resetToken}");
+        return (true, "Código generado (Revisa la consola del servidor local ya que falló el envío SMTP).");
+    }
+}
+
+public async Task<(bool success, string message)> ResetPasswordAsync(string email, string token, string newPassword)
+{
+    var normalizedEmail = NormalizeEmail(email);
+    var user = await _firebaseService.GetUserByEmailAsync(normalizedEmail);
+
+    if (user == null || string.IsNullOrEmpty(user.ResetToken) || user.ResetToken != token.Trim())
+        return (false, "El código de verificación es incorrecto o ya expiró.");
+
+    user.PasswordHash = HashPassword(newPassword);
+    user.ResetToken = null; // Limpiar token usado
+
+    await _firebaseService.UpdateUserAsync(user);
+    return (true, "Contraseña actualizada con éxito.");
+}
 }

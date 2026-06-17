@@ -21,4 +21,6 @@ public class User
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     [FirestoreProperty]
     public bool IsActive { get; set; } = true;
+    [FirestoreProperty]
+    public string? ResetToken { get; set; } = null;
 }

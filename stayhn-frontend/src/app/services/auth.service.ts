@@ -36,6 +36,16 @@ export class AuthService {
     return this.http.post<AuthResponse>(`${this.apiUrl}/login`, data);
   }
 
+  // Paso 1: Envía el correo para solicitar el código de 6 dígitos
+  forgotPassword(email: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/forgot-password`, { email });
+  }
+
+  // Paso 2: Envía el correo, el token (código) y la nueva contraseña
+  resetPassword(data: { email: string; token: string; newPassword: string }): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/reset-password`, data);
+  }
+
   logout(): void {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
